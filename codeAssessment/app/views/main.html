@@ -1,0 +1,72 @@
+<div class="wrapper">
+   <div class="row">
+      <div class="col-md-12">
+         <button class="btn btn-primary"  ng-if= "backButton" ng-click="onBackClick()">
+         Back
+         </button>
+      </div>
+   </div>
+   <form name="search">
+      <div class="search-box-wrapper" ng-if="!hideResults">
+         <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+               <div class="form-group">
+                  <input type="text" class="form-control" ng-model="search.text" ng-enter="onSearch(search.text)" placeholder="Search Bar" />
+               </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+         </div>
+         <div class="row" ng-if="!hideSearchForm">
+            <div class="col-md-12 text-center">
+               <button class="btn btn-primary" ng-click="onSearch(search.text)" ng-disabled="!search.text">
+               Search
+               </button>
+            </div>
+         </div>
+      </div>
+   </form>
+   <div class="search-results-wrapper" >
+      <div ng-if="!hideResults">
+         <h4 ng-if="results.items">total {{results.items.length}} repositories</h4>
+         <div class="" ng-repeat="item in results.items" >
+            <div class="row">
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10 search-results" ng-click= "getIssues(item)">
+                  <div class="row">
+                     <div class="col-md-3">
+                        <div>
+                           Title : {{item.name}}
+                        </div>
+                        <div>
+                           <span class="glyphicon glyphicon-star"></span> {{item.stargazers_count}}
+                        </div>
+                     </div>
+                     <div class="col-md-9">
+                        Description : {{item.description}}
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-1">
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="repo-issues-wrapper" ng-if="repoIssues.length > 0">
+         <h3 class="text-center">{{IssueNameHeader}}</h3>
+         <h6 class="text-center"><img height="20" width="20" src="{{ownerAwatar}}"/> {{issueOwner}}</h6>
+         <div class="row" ng-if ="hideResults"  ng-repeat="issue in repoIssues">
+            <div class="col-md-12">
+               <div class="checkbox">
+                  <label>
+                  <input type="checkbox" ng-checked="issue.state === 'closed'" name="issueCheckbox"> {{issue.title}}
+                  </label>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
